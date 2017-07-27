@@ -1,13 +1,22 @@
+/* ##################################### */
+
+
+/* initial elements */
+
 html, body {
 	background: #6464c5;
 	text-align: center;
-	background-image: linear-gradient(rgba(255,255,255,.4),rgba(255,255,255,.4)), url("http://www.extremetech.com/wp-content/uploads/2015/07/neural-net-head.jpg");
+	background-image: url("http://www.extremetech.com/wp-content/uploads/2015/07/neural-net-head.jpg");
 	background-position: center;
 	background-size: cover;
 	overflow: auto;
 	height: 100%;
 	width: 100%;
+/* 	linear-gradient(rgba(255,255,255,.4),rgba(255,255,255,.4)),  */
 }
+
+
+/* stacked pages  */
 
 div {position: absolute;}
 
@@ -24,6 +33,7 @@ div {position: absolute;}
 #stack div {
 	width: 600px;
 	height: 550px;
+	border-radius: 3px;
 	opacity: 1;
 	background-color: #d4d6c3;
 	box-shadow: -3px -2px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -54,7 +64,11 @@ div {position: absolute;}
 	z-index: 4;
 }
 
-/* css for doc load elements (see script.js) */
+
+/* ####################################################### */
+/* ####################################################### */
+
+/* css for doc ready elements (see script.js) */
 
 #four p#title  {
 	font-family: 'Droid Serif', serif;
@@ -68,12 +82,36 @@ div {position: absolute;}
 /* search icon */
 #search-icon {
 	font-size: 10em;
-	color: #8a2020;
+	color: #fb6011;
 	text-shadow: 3px 3px 5px grey;
 }
 #search-icon:hover {
-	color: #5f0909;
+	color: #ec5229;
 }
+
+
+#four button#random {
+  width: 150px;
+  height: 50px;
+  border-radius: 10%;
+  background-color: #2265af;
+  margin-top: 50px;
+  font-family: Helvetica, sans-serif;
+  font-size: 1.2em;
+  color: white;
+  font-weight: 500;
+  text-shadow: 1px 1px 5px black;
+}
+
+#four button#random:hover {
+	background-color: #19579b;
+}
+
+
+/* ####################################################### */
+/* 			search page              */
+/* ####################################################### */
+
 
 /* search box */
 
@@ -95,4 +133,15 @@ input[type=text] {
 input[type=text]:focus {
     width: 60%;
     outline: none;
+}
+
+/* or text */
+
+#orText {
+	font-family: 'Droid Serif', serif;
+	font-weight: 700;
+	font-size: 3.5em;
+	margin-top: 15px;
+	color: #023a8c;
+	text-shadow: 2px 2px 10px grey;
 }
