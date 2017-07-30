@@ -71,44 +71,121 @@ $(document).ready(function() {
   // add callback to get users search input
     function retSearchStr(search) {
       alert('Inside retSearchStr function');
-      search = encodeURI(search);
+      var query = "https://en.wikipedia.org//w/api.php?action=query&format=json&origin=\*&uselang=user&list=search&srsearch="; // MediaWiki web service API
+
       alert("Encoded user input is " + search + " about to pass query str as arg to getData");
       // add user search term to query url
-      var query = "https://en.wikipedia.org//w/api.php?action=query&format=json&origin=\*&uselang=user&list=search&srsearch=" + search; // MediaWiki web service API
-      return query;
+      return query + encodeURI(search);
     }
+
+
+    // var dfd = $.ajax({
+    //   url: "https://en.wikipedia.org//w/api.php?action=query&format=json&origin=\*&uselang=user&list=search&srsearch=hello",
+    //   dataType: "json"
+    // });
+
+
+
 
     function getData(url) {
+
       alert("inside getData function  // url is " + url);
+      window.open(url);
 
-// why does this fail to load in another function?
-  // probably because getJSON is asynchronous. See promise & deferred object
-      $.getJSON(url, function(json, status) {
-         alert("made request");
+      $.ajax({
+        url: url,
+        dataType: "json",
+        async: false,
+        success: function(data){
+          $("#four").html("<h1>Search Results</h1><span>" + data.parse + "</span>" );
+        },
+        complete: alert("complete")
+      });
 
-       if (status == "success") {
-         console.log("successful retrieval");
-       }
-       else {
-         console.log("retrieval failed");
-       }
-     });
-      // jsonRequest(url);
-      // make ajax request to MediaWiki action API
-      // $.getJSON(url, function(json, status) {
-      //   alert("made request");
-      //   if (status === "success") {
-      //     console.log("successful retrieval");
-      //   }
-      //   else {
-      //     console.log("retrieval failed");
-      //   }
+      // $.getJSON(url)
+      // //
+      // // .then(function(){
+      // //   alert("success!");
+      // // })
+      //
+      // .done(function() {
+      //   console.log( "second success" ); // jQuery 1.5 and later implements the Promise interface
+      // })
+      // .fail(function() {
+      //   console.log( "error");
+      // })
+      // .always(function() {
+      //   console.log( "complete" );
       // });
+
+
+      // why does this fail to load in another function?
+      // probably because getJSON is asynchronous. See promise & deferred object
+      // var data = $.getJSON(url, function() {
+      //   console.log('request success');
+      // })
+        // .done(function() {
+        //   console.log( "second success" ); // as of jQuery 1.5 getJSON implements the Promise interface
+        // })
+        // .fail(function() {
+        //   console.log( "error" );
+        // })
+        // .always(function() {
+        //   console.log( "complete" );
+        // });
+
+        //  if (status == "success") {
+        //    console.log("successful retrieval");
+        //  }
+        //  else {
+        //    console.log("retrieval failed");
+        //  }
     }
-
-
     // event binding (delegated event for the descendent element #wikiSearch)
     $("#four").on("keypress", "#wikiSearch", getUserInput);
+
+
+// working version using XMLHttpRequest & the JS promise object
+
+//     function get(url) {
+//   // Return a new promise.
+//   return new Promise(function(resolve, reject) {
+//     // Do the usual XHR stuff
+//     var req = new XMLHttpRequest();
+//     req.open('GET', url);
+//
+//     req.onload = function() {
+//       // This is called even on 404 etc
+//       // so check the status
+//       if (req.status == 200) {
+//         // Resolve the promise with the response text
+//         resolve(req.response);
+//       }
+//       else {
+//         // Otherwise reject with the status text
+//         // which will hopefully be a meaningful error
+//         reject(Error(req.statusText));
+//       }
+//     };
+//
+//     // Handle network errors
+//     req.onerror = function() {
+//       reject(Error("Network Error"));
+//     };
+//
+//     // Make the request
+//     req.send();
+//   });
+// }
+//
+// // Use it!
+// get(url).then(function(response) {
+//   console.log("Success!", response);
+// }, function(error) {
+//   console.error("Failed!", error);
+// });
+
+
 
 
 
