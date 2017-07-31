@@ -17,6 +17,8 @@ $(document).ready(function() {
     $("#search").replaceWith("<form><input id='wikiSearch' type='text' placeholder='Search...'></form><br><p id='orText'>or</p>");
   });
 
+
+
   // ###########################################################
   // #############       LOGIC     #############################
   // ###########################################################
@@ -26,10 +28,12 @@ $(document).ready(function() {
     window.open("https://en.wikipedia.org/wiki/Special:Random");
   });
 
+
   // #########      HANDLING SEARCHES       ################################### //
 
   function getUserInput(event) {
     if (event.which == 13) {
+      event.preventDefault(); // don't reload page on form submission
       var usrInput = document.getElementById("wikiSearch").value;
       // on enter, start spinning gear
       loading();
@@ -37,6 +41,7 @@ $(document).ready(function() {
       getData(retSearchStr(usrInput));
     }
   }
+
 
   // adds spinning gears & fade in of getData results
   function loading() {
@@ -46,25 +51,24 @@ $(document).ready(function() {
   .delay(200).fadeIn(200);
   }
 
+
   // add callback to get users search input
   function retSearchStr(usrInput) {
     var query = "https://en.wikipedia.org//w/api.php?action=query&format=json&origin=\*&uselang=user&list=search&srsearch="; // MediaWiki web service API
     return query + encodeURI(usrInput);
   }
 
-  // this synchronous request currently works, though is deprecated & not well
-  // supported for cross origin requests. Question is why does it silently fail if
-  // asynchronous? Looking into $.Deferred & the promise object
+
   function getData(url) {
     $.ajax({
       url: url,
       dataType: "json",
-      async: false,
-      success: function(data) {
+      success: function(data, success) {
         insertResults(data);
       }
     });
   }
+
 
   // Appends title & desc of top search results in a linked div
   function insertResults(data) {
