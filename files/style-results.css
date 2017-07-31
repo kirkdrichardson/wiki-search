@@ -44,3 +44,13 @@ div.resultItem:hover {
 	font-size: 250%;
 	color:#8787dc
 }
+
+.content a:link {
+	text-decoration: none;
+}
+
+@media screen and (max-width: 560px), screen and (max-height: 400px) {
+	.content h3 {font-size: 200%;}
+	.description {font-size: 150%;}
+
+}

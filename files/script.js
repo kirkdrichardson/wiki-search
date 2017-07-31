@@ -30,11 +30,20 @@ $(document).ready(function() {
 
   function getUserInput(event) {
     if (event.which == 13) {
-      // on enter, assign user input to var
       var usrInput = document.getElementById("wikiSearch").value;
-      // use a search query to initiate ajax request
+      // on enter, start spinning gear
+      loading();
+      // use returned search query to initiate ajax request
       getData(retSearchStr(usrInput));
     }
+  }
+
+  // adds spinning gears & fade in of getData results
+  function loading() {
+    $("#container").hide(function() {
+        $("body").append("<i id='gear' class='fa fa-gear fa-spin' style='font-size: 500px; color: #023a8c;'></i>");
+  })
+  .delay(200).fadeIn(200);
   }
 
   // add callback to get users search input
@@ -53,18 +62,11 @@ $(document).ready(function() {
       async: false,
       success: function(data) {
         insertResults(data);
-      },
-      error: function(data, status, errorType){
-        console.log("error");
-        console.log("data is ", data);
-        console.log("status is", status);
-        console.log("errorThrown is ", errorType);
       }
     });
   }
 
-
-  // Appends title & desc of top search results (10)
+  // Appends title & desc of top search results in a linked div
   function insertResults(data) {
     $("link[href='./files/style.css']").attr("href", "./files/style-results.css"); // change style sheet
     $(".content").html("");
@@ -74,9 +76,9 @@ $(document).ready(function() {
 
     for(var i = 0; i < searchObj.length; i++) {
       var title = searchObj[i]["title"];
-
+      // adds linked anchor tag containing div containing title & text snippet for each search result
       $(".content").append(
-        "<a href='" + pageLink + encodeURI(title) + "'>" +
+        "<a target='_blank' href='" + pageLink + encodeURI(title) + "'>" +
         "<div class='resultItem'>" +
           "<h3>" + title + "</h3>" +
           "<p class='description'>" + searchObj[i]["snippet"] + "..." +
@@ -87,8 +89,5 @@ $(document).ready(function() {
 
   // event binding (delegated event for the descendent element #wikiSearch)
   $("#four").on("keypress", "#wikiSearch", getUserInput);
-
-  // spinning gears to add later
-  // $("#four").html("<i class='fa fa-spinner fa-spin'></i>" + gear + gear , etc);
 
 }); // doc ready close
