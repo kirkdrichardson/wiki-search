@@ -20,7 +20,7 @@ html, body {
 
 div {position: absolute;}
 
-#container {
+.content {
 	left: 50%;
 	top: 50%;
 	height: 650px;
@@ -145,4 +145,11 @@ input[type=text]:focus {
 	margin-top: 15px;
 	color: #023a8c;
 	text-shadow: 2px 2px 10px grey;
+}
+
+
+.results {
+	color: white;
+	overflow: auto;
+	text-align: left;
 }

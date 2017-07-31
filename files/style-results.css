@@ -1,0 +1,46 @@
+html, body {
+	background: #6464c5;
+	text-align: center;
+	background-image: linear-gradient(rgba(255,255,255,.4),rgba(255,255,255,.4)),url("http://www.extremetech.com/wp-content/uploads/2015/07/neural-net-head.jpg");
+	background-position: center;
+	background-size: cover;
+	overflow: auto;
+	height: 100%;
+	width: 100%;
+
+/* 	linear-gradient(rgba(255,255,255,.4),rgba(255,255,255,.4)),  */
+}
+
+div.resultItem {
+	background: #031b38;
+	border-style: solid;
+	border-color: #6388a9;
+	border-radius: 1.5%;
+	border-width: 3px;
+	margin: 1%;
+	padding-left: 4%;
+	opacity: 0.9;
+}
+
+div.resultItem:hover {
+	background-color: #0f2b4a;
+	border-left-width: 10px;
+	border-left-color: #d28f55;
+}
+
+.content {
+	overflow: auto;
+	height: 100%;
+	width: 100%;
+	text-align: left;
+	color: #dac3ba;
+}
+
+.description {
+	font-size: 200%;
+}
+
+.content h3 {
+	font-size: 250%;
+	color:#8787dc
+}

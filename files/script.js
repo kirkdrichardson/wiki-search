@@ -3,7 +3,6 @@ $(document).ready(function() {
   // #########      DOM STYLING    ################################### //
   // ####################################################################
   // INITIAL LOAD
-
   // add Wiki Search header
   $("#four").html("<p id='title'><i class='fa fa-wikipedia-w' aria-hidden='true'></i>" + "iki Search</p>");
   // add Search Icon & random button
@@ -54,6 +53,12 @@ $(document).ready(function() {
       async: false,
       success: function(data) {
         insertResults(data);
+      },
+      error: function(data, status, errorType){
+        console.log("error");
+        console.log("data is ", data);
+        console.log("status is", status);
+        console.log("errorThrown is ", errorType);
       }
     });
   }
@@ -61,13 +66,22 @@ $(document).ready(function() {
 
   // Appends title & desc of top search results (10)
   function insertResults(data) {
-    $("#four").html("<h1>Search Results</h1>");
-    var searchObj = data["query"]["search"];
-    // var title = data["query"]["search"][0]["title"];
-    for(var i = 0; i < searchObj.length; i++) {
-      $("#four").append("<ul>"+ searchObj[i]["title"] + "</ul>" );
-      $("#four").append("<ul>"+ searchObj[i]["snippet"] + "</ul>" );
+    $("link[href='./files/style.css']").attr("href", "./files/style-results.css"); // change style sheet
+    $(".content").html("");
 
+    var searchObj = data["query"]["search"]; // search object w/ results
+    var pageLink = "https://en.wikipedia.org/wiki/";
+
+    for(var i = 0; i < searchObj.length; i++) {
+      var title = searchObj[i]["title"];
+
+      $(".content").append(
+        "<a href='" + pageLink + encodeURI(title) + "'>" +
+        "<div class='resultItem'>" +
+          "<h3>" + title + "</h3>" +
+          "<p class='description'>" + searchObj[i]["snippet"] + "..." +
+        "</p></div></a>"
+    );
     }
   }
 
